@@ -1,15 +1,38 @@
-class Hero {
-    constructor(nom, atq, vie) {
-        this.nom = nom;
-        this.pointAttaque = atq;
-        this.pointDeVie = vie;
+import {
+    Personnage
+} from "./personnage.js";
 
+export class Hero extends Personnage {
+    constructor(nom, atq, vie, defense, attaque) {
+        super(nom, atq, vie);
+        this.defense = (vie) => {
+            this.pointAttaque *= .5;
+            this.pointDeVie *= 2.5;
+            // augmenter les chances d'être attaquer par le boss
+        };
+        this.attaque = (atq) => {
+            this.pointAttaque *= 1.4;
+            this.pointDeVie *= .75;
+        };
     }
 }
 
-class Mage extends Hero {
-    constructor(nom, atq, vie, mana) {
-        super(nom, atq, vie);
+
+export class Guerrier extends Hero {
+    constructor(nom, atq, vie, defense, attaque, rage) {
+        super(nom, atq, vie, defense, attaque);
+        this.rage = rage;
+    }
+}
+export class Mage extends Hero {
+    constructor(nom, atq, vie, defense, attaque, mana) {
+        super(nom, atq, vie, defense, attaque);
         this.mana = mana;
+    }
+}
+export class Archer extends Hero {
+    constructor(nom, atq, vie, defense, attaque, fleche) {
+        super(nom, atq, vie, defense, attaque);
+        this.fleche = fleche;
     }
 }

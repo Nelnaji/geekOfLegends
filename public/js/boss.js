@@ -8,6 +8,6 @@ class Boss extends Personnage {
     }
 }
 
-const boss1 = new Boss("Le Blob", 100, 100);
-const boss2 = new Boss("Aragna", 100, 100);
-const boss3 = new Boss("Joker", 100, 100);
+const boss1 = new Boss("Sauron", 70, 80);
+const boss2 = new Boss("Chronos", 50, 120);
+const boss3 = new Boss("lilith", 30, 180);
