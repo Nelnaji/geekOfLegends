@@ -160,35 +160,72 @@ alert(`Le bosse sélectionné est ${bossSelected.nom}, ses stats sont affichés 
 console.log(`voici les informations du boss selectionné`)
 console.log(bossSelected)
 
-alert(`Le premier Tour Commence ! vos personnages ont la main`)
-console.log(`vos personnages attaqueront en même temps, vous pouvez choisir entre 3 positions différente : l'Attaque, La defense, Et Neutre`);
-let position = prompt(`Veuillez écrire la position que vos personnages devront adopter durant ce tour : Defense, Attaque, Neutre`);
+
 
 vieEquipe = guerrier.pointDeVie + mage.pointDeVie + archer.pointDeVie;
 atqEquipe = guerrier.pointAttaque + mage.pointAttaque + archer.pointAttaque;
 
 
 // Modification des stats en fonction de la selection du joueur.
-if (position === "Neutre") {
-    archer.neutre();
-    mage.neutre();
-    guerrier.neutre();
 
-    console.log(`vous avez selectionner la position Neutre : votre équipe a en tout ${vieEquipe} points de vie; et ${atqEquipe} points d'attaque`)
-} else if (position === "Defense") {
-    archer.defense();
-    mage.defense();
-    guerrier.defense();
+do {
 
-    console.log(`vous avez selectionner la position Defense : votre équipe a en tout ${vieEquipe} points de vie; et ${atqEquipe} points d'attaque`)
 
-} else if (position === "Attaque") {
-    archer.attaque();
-    mage.attaque();
-    guerrier.attaque();
+    // s'assurer qu'un personnage mort ne continue pas a être calculer dans les degats de l'équipe.
+    if (guerrier.pointDeVie <= 0) {
+        guerrier.pointAttaque = 0
+    } else if (mage.pointDeVie <= 0) {
+        mage.pointAttaque = 0
+    } else if (archer.pointDeVie <= 0) {
+        archer.pointAttaque = 0
+    }
 
-    console.log(`vous avez selectionner la position Attaque : votre équipe a en tout ${vieEquipe} points de vie; et ${atqEquipe} points d'attaque`)
+    // Setup de l'attaque et de la vie
+
+    vieEquipe = guerrier.pointDeVie + mage.pointDeVie + archer.pointDeVie;
+    atqEquipe = guerrier.pointAttaque + mage.pointAttaque + archer.pointAttaque;
+
+
+    alert(`Le tour ${tour} Commence ! vos personnages ont la main`)
+    console.log(`vos personnages attaqueront en même temps, vous pouvez choisir entre 3 positions différente : l'Attaque, La defense, Et Neutre`);
+    let position = prompt(`Veuillez écrire la position que vos personnages devront adopter durant ce tour : Defense, Attaque, Neutre`);
+
+    if (position === "Neutre") {
+        archer.neutre();
+        mage.neutre();
+        guerrier.neutre();
+
+        console.log(`vous avez selectionner la position Neutre : votre équipe a en tout ${vieEquipe} points de vie; et ${atqEquipe} points d'attaque`)
+    } else if (position === "Defense") {
+        archer.defense();
+        mage.defense();
+        guerrier.defense();
+
+        console.log(`vous avez selectionner la position Defense : votre équipe a en tout ${vieEquipe} points de vie; et ${atqEquipe} points d'attaque`)
+
+    } else if (position === "Attaque") {
+        archer.attaque();
+        mage.attaque();
+        guerrier.attaque();
+
+        console.log(`vous avez selectionner la position Attaque : votre équipe a en tout ${vieEquipe} points de vie; et ${atqEquipe} points d'attaques`)
+    }
+
+    bossSelected.pointDeVie = bossSelected.pointDeVie - atqEquipe;
+    console.log(`Votre équipe attaque ${bossSelected.nom}`);
+    console.log(`${bossSelected.nom} perd ${bossSelected.pointDeVie} points de vies `);
+    console.log(bossSelected);
+
+
+
+
+} while (bossSelected.pointDeVie > 0 && vieEquipe > 0)
+
+
+// Condition de victoire
+
+if (bossSelected.pointDeVie <= 0 && vieEquipe > 0) {
+    alert(`BIENJOUE ${bossSelected.nom} est mort !`)
+} else if (bossSelected.pointDeVie > 0 && vieEquipe <= 0) {
+    alert(`tous les membres de l'équipe sont morts`)
 }
-
-console.log(`Votre équipe attaque ${bossSelected.nom}`)
-console.log(`${bossSelected.nom} perd ${bossSelected.vie}points de vies `)

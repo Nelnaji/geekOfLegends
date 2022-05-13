@@ -5,12 +5,12 @@ import {
 export class Hero extends Personnage {
     constructor(nom, atq, vie, defense, attaque) {
         super(nom, atq, vie);
-        this.defense = (atq, vie) => {
+        this.defense = () => {
             this.pointAttaque = this.pointAttaque * .5;
             this.pointDeVie = this.pointDeVie * 2.5;
             // augmenter les chances d'être attaquer par le boss
         };
-        this.attaque = (atq, vie) => {
+        this.attaque = () => {
             this.pointAttaque = this.pointAttaque * 1.4;
             this.pointDeVie = this.pointDeVie * .75;
         };
